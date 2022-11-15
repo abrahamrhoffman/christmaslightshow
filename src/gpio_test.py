@@ -3,7 +3,7 @@ import random
 import time
 
 
-class ChristmasLightTest(object):
+class GPIOTest(object):
 
     def __init__(self, speed=0.05):
         GPIO.setwarnings(False)   # Disable GPIO in use warnings
@@ -60,7 +60,7 @@ class ChristmasLightTest(object):
 
 
 def main():
-    x = ChristmasLightTest(speed=0.05)
+    x = GPIOTest(speed=0.05)
     x.run()
 
 
