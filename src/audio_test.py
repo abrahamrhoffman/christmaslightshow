@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from pygame import mixer
 import glob
 import time
