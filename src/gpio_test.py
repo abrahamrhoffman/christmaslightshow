@@ -47,7 +47,7 @@ class GPIOTest(object):
 
     # Test cycle through channels: Test Onboard LEDs - Random
     def random_selection(self):
-        for channel in [random.choice(self.channels) for _ in range(0, 32)]:
+        for channel in [random.choice(self.channels) for _ in range(0, 128)]:
             GPIO.setup(channel, GPIO.OUT)
             GPIO.output(channel, True)
             time.sleep(self.speed)
@@ -58,6 +58,8 @@ class GPIOTest(object):
         self.forward()
         self.reverse()
         self.random_selection()
+        self.forward()
+        self.reverse()
 
 
 def main():
