@@ -1,4 +1,5 @@
 from pygame import mixer
+import glob
 import time
 
 
@@ -11,7 +12,7 @@ class AudioTest(object):
 
     # Make sure you populate the songs in the audio path
     def gather_songs(self):
-        songs = [ "jingle.mp3", "rockin.mp3", "carol.mp3", "santa.mp3" ]
+        songs = glob.glob("".join([self.base_audio_path, "*"]))
         return songs
 
     # Driver method
@@ -19,8 +20,8 @@ class AudioTest(object):
         mixer.init()
         mixer.music.set_volume(self.volume)
         for song in self.songs:
-            print(song)
-            mixer.music.load("".join([self.base_audio_path, song]))
+            print(song.split("/")[-1])
+            mixer.music.load(song)
             mixer.music.play()
             time.sleep(5)
             mixer.music.stop()
