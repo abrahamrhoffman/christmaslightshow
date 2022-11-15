@@ -55,11 +55,19 @@ class GPIOTest(object):
 
     # Driver method
     def run(self):
-        self.forward()
-        self.reverse()
+        # User selected blink speed: forward and reverse
+        for _ in range(5):
+            self.forward()
+            self.reverse()
+
+        # Quickly and randomly (using LCG) choose and flash lights
         self.random_selection()
-        self.forward()
-        self.reverse()
+
+        # Force a slow blink on the lights: forward and reverse
+        self.speed = 0.25
+        for _ in range(5):
+            self.forward()
+            self.reverse()
 
 
 def main():
