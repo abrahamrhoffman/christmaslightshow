@@ -9,6 +9,7 @@ class AudioTest(object):
         self.songs = self.gather_songs()
         self.volume = volume
 
+    # Make sure you populate the songs in the audio path
     def gather_songs(self):
         songs = [ "jingle.mp3", "rockin.mp3", "carol.mp3", "santa.mp3" ]
         return songs
