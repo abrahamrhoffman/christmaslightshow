@@ -7,7 +7,7 @@ class ChristmasLightTest(object):
 
     def __init__(self, speed=0.05):
         GPIO.setwarnings(False)   # Disable GPIO in use warnings
-        GPIO.setmode(GPIO.BOARD)  # Set the GPIO mode to BOARD pin integer
+        GPIO.setmode(GPIO.BOARD)  # Set the GPIO mode to BOARD using pin integer
         self.channels = self.configure_channels()
         self.speed=speed
 
