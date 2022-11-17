@@ -6,7 +6,7 @@ import time
 
 class GPIOTest(object):
 
-    def __init__(self, speed=0.05):
+    def __init__(self, speed=0.25):
         GPIO.setwarnings(False)   # Disable GPIO in use warnings
         GPIO.setmode(GPIO.BOARD)  # Set the GPIO mode to BOARD using pin integer
         self.channels = self.configure_channels()
@@ -53,25 +53,47 @@ class GPIOTest(object):
             time.sleep(self.speed)
             GPIO.output(channel, False)
 
+    def outside_in(self):
+        left_side = self.channels[0:4]
+        right_side = self.channels[4:8][::-1]
+        for lc, rc in zip(left_side, right_side):
+            GPIO.setup(lc, GPIO.OUT)
+            GPIO.output(lc, True)
+            GPIO.setup(rc, GPIO.OUT)
+            GPIO.output(rc, True)
+            time.sleep(self.speed)
+            GPIO.output(lc, False)
+            GPIO.output(rc, False)
+
+    def inside_out(self):
+        left_side = self.channels[0:4][::-1]
+        right_side = self.channels[4:8]
+        for lc, rc in zip(left_side, right_side):
+            GPIO.setup(lc, GPIO.OUT)
+            GPIO.output(lc, True)
+            GPIO.setup(rc, GPIO.OUT)
+            GPIO.output(rc, True)
+            time.sleep(self.speed)
+            GPIO.output(lc, False)
+            GPIO.output(rc, False)
+
     # Driver method
     def run(self):
-        # User selected blink speed: forward and reverse
-        for _ in range(5):
-            self.forward()
-            self.reverse()
+        # Test pairing of lights from the outside channels to the inside and reverse
+        self.outside_in()
+        self.inside_out()
 
         # Quickly and randomly (using LCG) choose and flash lights
         self.random_selection()
 
         # Force a slow blink on the lights: forward and reverse
-        self.speed = 0.25
         for _ in range(5):
             self.forward()
             self.reverse()
 
 
 def main():
-    x = GPIOTest(speed=0.05)
+    x = GPIOTest(speed=0.75)
     x.run()
 
 
