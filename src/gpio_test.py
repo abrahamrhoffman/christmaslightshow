@@ -93,7 +93,7 @@ class GPIOTest(object):
 
 
 def main():
-    x = GPIOTest(speed=0.75)
+    x = GPIOTest()
     x.run()
 
 
