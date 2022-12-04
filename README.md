@@ -1,12 +1,7 @@
 # christmaslightshow
 Code for the Raspberry Pi 4 - 2022 Dexter Co-op Pre-school Christmas Light Show
 
-### Timing vs Duration
-The first number in the sequence file is the timing. Timing is when the effect should take place. The duration is the second number. This informs `lightshow` how long the action should take to complete. If the duration is left blank, the default duration of $1/6$ (for a total of one second if applied to all light channels) is enacted for the action.
-
-For a demonstration of the sequence timings and durations, try `demo.seq` in the sequences folder.
-
-### Sequences
+# Sequences
 This 2022 lightshow was architected for a float with six poles: three poles on the left and right side.
 
 I named each zone from zero to five. From there, I grouped the channels, representing each side of the float: 0-2 (Group One), 3-5 (Group Two).
@@ -59,3 +54,7 @@ Channel and group mappings used:
 0,1,2,3,4,5 - END
 ```
 
+## Timing vs Duration
+The first number in the sequence file is the timing. Timing is when the effect should take place. The duration is the second number. This informs `lightshow` how long the action should take to complete. If the duration is left blank, the default duration of $1/6$ (for a total of one second if applied to all light channels) is enacted for the action.
+
+For a demonstration of the sequence timings and durations, try `demo.seq` in the sequences folder.
