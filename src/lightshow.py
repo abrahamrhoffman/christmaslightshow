@@ -36,13 +36,127 @@ class LightShow(object):
         channel_3 = 15
         channel_4 = 16
         channel_5 = 18
-        # channel_6 = 22
-        # channel_7 = 24
-        channels = [
-            channel_0, channel_1, channel_2, channel_3,
-            channel_4, channel_5 #, channel_6, channel_7,
-        ]
+        channels = [ channel_0, channel_1, channel_2, channel_3, channel_4, channel_5 ]
         return channels
+
+    # Pair channel: 0,3
+    def pair_one(self, custom_speed=False):
+        for channel in [self.channels[0], self.channels[3]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[0], self.channels[3]]:
+            GPIO.output(channel, False)
+
+    # Pair channel: 1,4
+    def pair_two(self, custom_speed=False):
+        for channel in [self.channels[1], self.channels[4]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[1], self.channels[4]]:
+            GPIO.output(channel, False)
+
+    # Pair channel: 2,5
+    def pair_three(self, custom_speed=False):
+        for channel in [self.channels[2], self.channels[5]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[2], self.channels[5]]:
+            GPIO.output(channel, False)
+
+    # Pair channel: 0,5
+    def diagonal_one(self, custom_speed=False):
+        for channel in [self.channels[0], self.channels[5]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[0], self.channels[5]]:
+            GPIO.output(channel, False)
+
+    # Pair channel: 2,3
+    def diagonal_two(self, custom_speed=False):
+        for channel in [self.channels[2], self.channels[3]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[2], self.channels[3]]:
+            GPIO.output(channel, False)
+
+    # Pair channel: 0,4
+    def down_right_one(self, custom_speed=False):
+        for channel in [self.channels[0], self.channels[4]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[0], self.channels[4]]:
+            GPIO.output(channel, False)
+
+    # Pair channel: 1,5
+    def down_right_two(self, custom_speed=False):
+        for channel in [self.channels[1], self.channels[5]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[1], self.channels[5]]:
+            GPIO.output(channel, False)
+
+    # Pair channel: 1,3
+    def down_left_one(self, custom_speed=False):
+        for channel in [self.channels[1], self.channels[3]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[1], self.channels[3]]:
+            GPIO.output(channel, False)
+
+    # Pair channel: 2,4
+    def down_left_two(self, custom_speed=False):
+        for channel in [self.channels[2], self.channels[4]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[2], self.channels[4]]:
+            GPIO.output(channel, False)
+
+    def all_on(self, custom_speed=False):
+        for channel in self.channels:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in self.channels:
+            GPIO.output(channel, False)
 
     # Turn off all GPIOs
     def all_off(self):
@@ -50,83 +164,116 @@ class LightShow(object):
             for channel in self.channels:
                 GPIO.output(channel, False)
         except RuntimeError:
-            # Maybe all the GPIOs are already off
+            # Maybe all (or one) of the GPIOs are already off
             pass
 
     # Cycle GPIOs forward
-    def forward(self):
-        for channel in self.channels:
+    def forward(self, custom_speed=False):
+        channels = [
+            self.channels[0], self.channels[1], self.channels[2],
+            self.channels[5], self.channels[4], self.channels[3]
+        ]
+        for channel in channels:
             GPIO.setup(channel, GPIO.OUT)
             GPIO.output(channel, True)
-            time.sleep(self.speed)
+            if custom_speed:
+                time.sleep(float(int(custom_speed) / 1000))
+            else:
+                time.sleep(self.speed)
             GPIO.output(channel, False)
 
     # Cycle GPIOs reverse
-    def reverse(self):
-        for channel in self.channels[::-1]:
+    def reverse(self, custom_speed=False):
+        channels = [
+            self.channels[3], self.channels[4], self.channels[5],
+            self.channels[2], self.channels[1], self.channels[0]
+        ]
+        for channel in channels:
             GPIO.setup(channel, GPIO.OUT)
             GPIO.output(channel, True)
-            time.sleep(self.speed)
+            if custom_speed:
+                time.sleep(float(int(custom_speed) / 1000))
+            else:
+                time.sleep(self.speed)
             GPIO.output(channel, False)
 
     # Cycle GPIOs randomly (using a LCG)
-    def random_selection(self):
-        for channel in [random.choice(self.channels) for _ in range(0, 16)]:
+    def random_selection(self, custom_speed=False):
+        for channel in [random.choice(self.channels) for _ in range(0, 12)]:
             GPIO.setup(channel, GPIO.OUT)
             GPIO.output(channel, True)
-            time.sleep(self.speed)
+            if custom_speed:
+                time.sleep(float(int(custom_speed) / 1000))
+            else:
+                time.sleep(self.speed)
             GPIO.output(channel, False)
 
     # Cycle GPIOs from the outside channels to the inside channels
-    def outside_in(self):
-        left_side = self.channels[0:4]
-        right_side = self.channels[4:8][::-1]
-        for lc, rc in zip(left_side, right_side):
-            GPIO.setup(lc, GPIO.OUT)
-            GPIO.output(lc, True)
-            GPIO.setup(rc, GPIO.OUT)
-            GPIO.output(rc, True)
+    def outside_in(self, custom_speed=False):
+        for channel in [self.channels[0], self.channels[2], self.channels[3], self.channels[5]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
             time.sleep(self.speed)
-            GPIO.output(lc, False)
-            GPIO.output(rc, False)
+        for channel in [self.channels[0], self.channels[2], self.channels[3], self.channels[5]]:
+            GPIO.output(channel, False)
+
+        for channel in [self.channels[1], self.channels[4]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[1], self.channels[4]]:
+            GPIO.output(channel, False)
 
     # Cycle GPIOs from the inside channels to the outside channels
-    def inside_out(self):
-        left_side = self.channels[0:4][::-1]
-        right_side = self.channels[4:8]
-        for lc, rc in zip(left_side, right_side):
-            GPIO.setup(lc, GPIO.OUT)
-            GPIO.output(lc, True)
-            GPIO.setup(rc, GPIO.OUT)
-            GPIO.output(rc, True)
+    def inside_out(self, custom_speed=False):
+        for channel in [self.channels[1], self.channels[4]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
             time.sleep(self.speed)
-            GPIO.output(lc, False)
-            GPIO.output(rc, False)
+        for channel in [self.channels[1], self.channels[4]]:
+            GPIO.output(channel, False)
 
-    def split_channels_one(self):
-        split_channels = [ self.channels[0], self.channels[2], self.channels[4], self.channels[6] ]
+        for channel in [self.channels[0], self.channels[2], self.channels[3], self.channels[5]]:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
+        for channel in [self.channels[0], self.channels[2], self.channels[3], self.channels[5]]:
+            GPIO.output(channel, False)
+
+    def split_channels_one(self, custom_speed=False):
+        split_channels = [ self.channels[0], self.channels[4], self.channels[2] ]
         for channel in split_channels:
             GPIO.setup(channel, GPIO.OUT)
             GPIO.output(channel, True)
-        time.sleep(1)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
         for channel in split_channels:
             GPIO.output(channel, False)
 
-    def split_channels_two(self):
-        split_channels = [ self.channels[1], self.channels[3], self.channels[5], self.channels[7] ]
+    def split_channels_two(self, custom_speed=False):
+        split_channels = [ self.channels[1], self.channels[3], self.channels[5] ]
         for channel in split_channels:
             GPIO.setup(channel, GPIO.OUT)
             GPIO.output(channel, True)
-        time.sleep(1)
+        if custom_speed:
+            time.sleep(float(int(custom_speed) / 1000))
+        else:
+            time.sleep(self.speed)
         for channel in split_channels:
-            GPIO.output(channel, False)
-
-    def all_on(self):
-        for channel in self.channels:
-            GPIO.setup(channel, GPIO.OUT)
-            GPIO.output(channel, True)
-        time.sleep(1)
-        for channel in self.channels:
             GPIO.output(channel, False)
 
     def run(self):
@@ -149,36 +296,108 @@ class LightShow(object):
             current_time = (int(round(time.time() * 1000)) - start_time)
 
             # Instead of blindly blocking on a while True, step through each timestep.
-            # When the timestep in the sequence matches, trigger the GPIO actions in the sequence file
-            for ix, step in enumerate(sequence_data[1:]):
-                print(step)
+            # When the timestep in the sequence (approximately) matches, trigger the GPIO actions in the sequence file
+            # In practice, this approximate timing has always been close enough to be accurate.
+            for step in sequence_data[1:]:
                 while (int(step.split(",")[0]) >= current_time):
                     current_time = (int(round(time.time() * 1000)) - start_time)
-                    time.sleep(0.1)
-                    if current_time % 500 == 0:
-                        print(step.split(",")[0], current_time)
+                    time.sleep(0.1)  # Can decrease for higher accuracy - causes more CPU load
 
                 # Once the timestep is reached, trigger the action in the sequence file
+                timestep = step.split(",")[0]
                 action = step.split(",")[1]
-                print(action)
-                if action == "ALL_OFF":
-                    self.all_off()
-                elif action == "ALL_ON":
-                    self.all_on()
+                duration = step.split(",")[2]
+                print(f"{timestep} :: {action} {duration}")
+                if action == "ALL_ON":
+                    if duration != "":
+                        self.all_on(custom_speed=duration)
+                    else:
+                        self.all_on()
+                elif action == "ALL_OFF":
+                    if duration != "":
+                        self.all_off(custom_speed=duration)
+                    else:
+                        self.all_off()
+                elif action == "PAIR_ONE":
+                    if duration != "":
+                        self.pair_one(custom_speed=duration)
+                    else:
+                        self.pair_one()
+                elif action == "PAIR_TWO":
+                    if duration != "":
+                        self.pair_two(custom_speed=duration)
+                    else:
+                        self.pair_two()
+                elif action == "PAIR_THREE":
+                    if duration != "":
+                        self.pair_three(custom_speed=duration)
+                    else:
+                        self.pair_three()
+                elif action == "DIAGONAL_ONE":
+                    if duration != "":
+                        self.diagonal_one(custom_speed=duration)
+                    else:
+                        self.diagonal_one()
+                elif action == "DIAGONAL_TWO":
+                    if duration != "":
+                        self.diagonal_two(custom_speed=duration)
+                    else:
+                        self.diagonal_two()
+                elif action == "DOWN_RIGHT_ONE":
+                    if duration != "":
+                        self.down_right_one(custom_speed=duration)
+                    else:
+                        self.down_right_one()
+                elif action == "DOWN_RIGHT_TWO":
+                    if duration != "":
+                        self.down_right_two(custom_speed=duration)
+                    else:
+                        self.down_right_two()
+                elif action == "DOWN_LEFT_ONE":
+                    if duration != "":
+                        self.down_left_one(custom_speed=duration)
+                    else:
+                        self.down_left_one()
+                elif action == "DOWN_LEFT_TWO":
+                    if duration != "":
+                        self.down_left_two(custom_speed=duration)
+                    else:
+                        self.down_left_two()
                 elif action == "FORWARD":
-                    self.forward()
+                    if duration != "":
+                        self.forward(custom_speed=duration)
+                    else:
+                        self.forward()
                 elif action == "REVERSE":
-                    self.reverse()
+                    if duration != "":
+                        self.reverse(custom_speed=duration)
+                    else:
+                        self.reverse()
                 elif action == "RANDOM":
-                    self.random_selection()
+                    if duration != "":
+                        self.random_selection(custom_speed=duration)
+                    else:
+                        self.random_selection()
                 elif action == "OUTSIDE_IN":
-                    self.outside_in()
+                    if duration != "":
+                        self.outside_in(custom_speed=duration)
+                    else:
+                        self.outside_in()
                 elif action == "INSIDE_OUT":
-                    self.inside_out()
+                    if duration != "":
+                        self.inside_out(custom_speed=duration)
+                    else:
+                        self.inside_out()
                 elif action == "SPLIT_CHANNELS_ONE":
-                    self.split_channels_one()
+                    if duration != "":
+                        self.split_channels_one(custom_speed=duration)
+                    else:
+                        self.split_channels_one()
                 elif action == "SPLIT_CHANNELS_TWO":
-                    self.split_channels_two()
+                    if duration != "":
+                        self.split_channels_two(custom_speed=duration)
+                    else:
+                        self.split_channels_two()
                 elif action == "END":
                     # Move on to the next song-sequence pair or exit 0
                     break
