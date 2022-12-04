@@ -1,9 +1,8 @@
 # christmaslightshow
 Code for the Raspberry Pi 4 - 2022 Dexter Co-op Pre-school Christmas Light Show
 
-- [christmaslightshow](#christmaslightshow)
-  * [Sequences](#sequences)
-    + [Timing vs Duration](#timing-vs-duration)
+- [Sequences](#sequences)
+    * [Timing vs Duration](#timing-vs-duration)
 
 ## Sequences
 This 2022 lightshow was architected for a float with six poles: three poles on the left and right side.
