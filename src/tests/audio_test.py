@@ -7,7 +7,7 @@ import time
 class AudioTest(object):
 
     def __init__(self, volume=1.0):
-        self.base_audio_path = ("./audio/")
+        self.base_audio_path = ("../audio/")
         self.songs = self.gather_songs()
         self.volume = volume
 

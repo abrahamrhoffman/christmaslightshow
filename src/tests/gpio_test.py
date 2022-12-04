@@ -6,7 +6,7 @@ import time
 
 class GPIOTest(object):
 
-    def __init__(self, speed=0.25):
+    def __init__(self, speed=0.125):
         GPIO.setwarnings(False)   # Disable GPIO in use warnings
         GPIO.setmode(GPIO.BOARD)  # Set the GPIO mode to BOARD using pin integer
         self.channels = self.configure_channels()
@@ -28,6 +28,14 @@ class GPIOTest(object):
             channel_4, channel_5, channel_6, channel_7,
         ]
         return channels
+
+    # Test cycle though all the channels slowly
+    def slow(self):
+        for channel in self.channels:
+            GPIO.setup(channel, GPIO.OUT)
+            GPIO.output(channel, True)
+            time.sleep(5)
+            GPIO.output(channel, False)
 
     # Test cycle through channels: Test Onboard LEDs - Forward
     def forward(self):
@@ -90,6 +98,7 @@ class GPIOTest(object):
         for _ in range(5):
             self.forward()
             self.reverse()
+        # self.slow()
 
 
 def main():
