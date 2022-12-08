@@ -52,6 +52,8 @@ Channel and group mappings used:
 0,1,2,3,4,5 - SPLIT_CHANNELS_ONE
 0,1,2,3,4,5 - SPLIT_CHANNELS_TWO
 
+0,1,2,3,4,5 - CIRCLE
+
 0,1,2,3,4,5 - RANDOM
 
 0,1,2,3,4,5 - END
